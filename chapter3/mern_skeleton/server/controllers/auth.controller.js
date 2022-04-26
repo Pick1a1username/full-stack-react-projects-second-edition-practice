@@ -1,6 +1,6 @@
 import User from '../models/user.model'
 import jwt from 'jsonwebtoken'
-import expressJwt from 'express-jwt'
+import { expressjwt } from 'express-jwt'
 import config from './../../config/config'
 
 const signin = async (req, res) => {
@@ -13,7 +13,7 @@ const signin = async (req, res) => {
       return res.status('401').send({ error: "Email and password don't match." })
     }
 
-    const token = jwt.sign({ _id: user._id }, config.jwtSecret)
+    const token = jwt.sign({ _id: user._id }, config.jwtSecret, { algorithm: config.jwtAlgorithm })
 
     res.cookie('t', token, { expire: new Date() + 9999 })
 
@@ -26,7 +26,9 @@ const signin = async (req, res) => {
       }
     })
   } catch (err) {
-    return res.status('401').json({ error: "Could not sign in" })
+    let errMsgForUser = "Could not sign in"
+    console.error(`${errMsgForUser}: ${err}`)
+    return res.status('401').json({ error: errMsgForUser })
   }
 }
 
@@ -37,9 +39,10 @@ const signout = (req, res) => {
   })
 }
 
-const requireSignin = expressJwt({
+const requireSignin = expressjwt({
   secret: config.jwtSecret,
-  userProperty: 'auth'
+  userProperty: 'auth',
+  algorithms: [config.jwtAlgorithm]
 })
 
 const hasAuthorization = (req, res, next) => {
