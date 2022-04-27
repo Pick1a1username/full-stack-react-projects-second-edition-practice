@@ -6,6 +6,10 @@
             "node": "current"   // the node being used during conversion
           }
         }
-      ]
+      ],
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "react-hot-loader/babel"
     ]
-  }
+}
