@@ -21,6 +21,10 @@ const config = {
           test: /\.jsx?$/,
           exclude: /node_modules/,
           use: ['babel-loader']
+        },
+        {
+          test: /\.(ttf|eot|svg|gif|jpg|png)(\?[\s\S]+)?$/,
+          use: 'file-loader'
         }
       ]
     }, 
@@ -32,7 +36,10 @@ const config = {
       alias: {
         'react-dom': '@hot-loader/react-dom'
       }
-    }
+    },
+    // https://stackoverflow.com/questions/48047150/chrome-extension-compiled-by-webpack-throws-unsafe-eval-error
+    // A warning related to eval() by react hot loader still exists. But react hot loader seems to be okay.
+    devtool: 'cheap-module-source-map'
  }
 
 module.exports = config
