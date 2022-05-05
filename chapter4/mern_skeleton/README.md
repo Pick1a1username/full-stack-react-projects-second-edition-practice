@@ -6,7 +6,7 @@
 Using docker: 
 
 ```sh
-docker run -it -p 127.0.0.1:27017:27017/tcp mongo:4.2.19
+docker run -it -p 127.0.0.1:27017:27017/tcp -v mern_skeleton:/data/db mongo:4.2.19
 ```
 
 
