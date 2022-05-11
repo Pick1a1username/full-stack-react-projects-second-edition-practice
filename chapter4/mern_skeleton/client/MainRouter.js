@@ -9,9 +9,11 @@ import Profile from './user/Profile.js'
 import Signup from './user/Signup.js'
 import PrivateRoute from './auth/PrivateRoute.js'
 import Signin from './auth/Signin.js'
+import Menu from './core/Menu.js'
 
 const MainRouter = () => {
     return ( <div>
+      <Menu/>
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route exact path="/users" component={Users}/>
@@ -20,13 +22,6 @@ const MainRouter = () => {
         <PrivateRoute path="/user/edit/:userId" component={EditProfile}/>
         <Route path="/user/:userId" component={Profile}/>
       </Switch>
-      {/* temporary */}
-      <Link to="/users">Users</Link>
-      <Link to="/signup">Signup</Link>
-      <Link to="/signin">Signin</Link>
-      <Link to="/user/6273cba4da402f2eaccc09b1">John Profile</Link>
-      <Link to="/user/edit/6273cba4da402f2eaccc09b1">John Edit Profile</Link>
-      <Link to="/user/6273cc33da402f2eaccc09b3">Bang Profile</Link>
     </div>
    )
 }
