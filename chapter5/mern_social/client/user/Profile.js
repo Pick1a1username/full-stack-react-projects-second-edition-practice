@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
@@ -83,9 +85,18 @@ export default function Profile({ match }) {
         </ListItem>
         <Divider/>
         <ListItem>
+          {/* <ListItemText primary={user.about} secondary={"Joined: " + (
+            new Date(user.created)).toDateString()}/> */}
           <ListItemText primary={"Joined: " + (
             new Date(user.created)).toDateString()}/>
         </ListItem>
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography variant="body2" component="p">
+              {user.about}
+            </Typography>
+          </CardContent>
+        </Card>
       </List>
     </Paper>
 )
