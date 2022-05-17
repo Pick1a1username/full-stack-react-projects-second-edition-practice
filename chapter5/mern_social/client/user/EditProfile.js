@@ -112,7 +112,8 @@ export default function EditProfile({ match }) {
           id="multiline-flexible"
           label="About"
           multiline
-          rows="2"
+          rows="4"
+          className={classes.textField}
           value={values.about}
           onChange={handleChange('about')}
         /><br/>
