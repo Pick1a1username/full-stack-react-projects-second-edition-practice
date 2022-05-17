@@ -85,15 +85,15 @@ export default function Profile({ match }) {
         </ListItem>
         <Divider/>
         <ListItem>
-          {/* <ListItemText primary={user.about} secondary={"Joined: " + (
-            new Date(user.created)).toDateString()}/> */}
           <ListItemText primary={"Joined: " + (
             new Date(user.created)).toDateString()}/>
         </ListItem>
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="body2" component="p">
-              {user.about}
+              <pre style={{ fontFamily: 'inherit' }}>
+                {user.about}
+              </pre>
             </Typography>
           </CardContent>
         </Card>
