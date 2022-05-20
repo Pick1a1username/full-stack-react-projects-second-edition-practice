@@ -29,3 +29,10 @@ docker run -it -p 127.0.0.1:27017:27017/tcp -v mern_skeleton:/data/db mongo:4.2.
     $
     ```
     * https://stackoverflow.com/questions/68958221/mongoparseerror-options-usecreateindex-usefindandmodify-are-not-supported
+
+## Images
+
+* `client/assets/images/cottage.jpg`
+  * https://pixabay.com/photos/cottage-trees-path-trail-house-2955582/
+* `client/assets/images/profile-pic.png`
+  * https://iconarchive.com/show/all-flat-icons-by-mahm0udwally/User-icon.html

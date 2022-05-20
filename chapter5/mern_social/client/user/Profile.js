@@ -59,6 +59,10 @@ export default function Profile({ match }) {
     return <Redirect to='/signin'/>
   }
 
+  const photoUrl = user._id
+    ? `/api/users/photo/${user._id}?${new Date().getTime()}`
+    : '/api/users/defaultphoto'
+
   return (
     <Paper className={classes.root} elevation={4}>
       <Typography variant="h6" className={classes.title}>
@@ -67,9 +71,7 @@ export default function Profile({ match }) {
       <List dense>
         <ListItem>
           <ListItemAvatar>
-            <Avatar>
-              <Person/>
-            </Avatar>
+            <Avatar src={photoUrl}/>
           </ListItemAvatar>
           <ListItemText primary={user.name} secondary={user.email}/> {
              auth.isAuthenticated().user && auth.isAuthenticated().user._id == user._id &&
