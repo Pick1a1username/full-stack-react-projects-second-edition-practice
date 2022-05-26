@@ -16,6 +16,7 @@ import Person from '@material-ui/icons/Person'
 import Divider from '@material-ui/core/Divider'
 import DeleteUser from './DeleteUser'
 import FollowProfileButton from './../user/FollowProfileButton'
+import ProfileTabs from './../user/ProfileTabs'
 import auth from './../auth/auth-helper'
 import {read} from './api-user.js'
 import {Redirect, Link} from 'react-router-dom'
@@ -127,6 +128,7 @@ export default function Profile({ match }) {
           </CardContent>
         </Card>
       </List>
+      <ProfileTabs user={values.user}/>
     </Paper>
   )
 }
