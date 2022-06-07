@@ -9,6 +9,7 @@ import cottage from './../assets/images/cottage.jpg'
 
 import auth from './../auth/auth-helper'
 import FindPeople from './../user/FindPeople'
+import Newsfeed from './../post/Newsfeed'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,6 +58,9 @@ export default function Home({}){
       }
       {defaultPage &&
         <Grid container spacing={8}>
+          <Grid item xs={8} sm={7}>
+            <Newsfeed/>
+          </Grid>
           <Grid item xs={6} sm={5}>
             <FindPeople/>
           </Grid>

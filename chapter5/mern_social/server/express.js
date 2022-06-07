@@ -15,6 +15,7 @@ import authRoutes from './routes/auth.routes'
 import devBundle from './devBundle'
 import MainRouter from './../client/MainRouter'
 import theme from './../client/theme'
+import postRoutes from './routes/post.routes'
 import userRoutes from './routes/user.routes'
 
 
@@ -33,6 +34,7 @@ app.use(cors())
 //   res.status(200).send(Template())
 // })
 app.use('/', userRoutes)
+app.use('/', postRoutes)
 app.use('/', authRoutes)
 app.get('*', (req, res) => {
   const sheets = new ServerStyleSheets()
