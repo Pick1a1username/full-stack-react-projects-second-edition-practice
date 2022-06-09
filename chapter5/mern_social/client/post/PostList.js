@@ -6,7 +6,7 @@ export default function PostList (props) {
   return (
     <div style={{marginTop: '24px'}}>
       {props.posts.map((item, i) => {
-          return <Post post={item} key={i}/>
+          return <Post post={item} key={i} onRemove={props.removeUpdate}/>
         })
       }
     </div>
@@ -15,5 +15,5 @@ export default function PostList (props) {
 
 PostList.propTypes = {
   posts: PropTypes.array.isRequired,
-  // removeUpdate: PropTypes.func.isRequired
+  removeUpdate: PropTypes.func.isRequired
 }

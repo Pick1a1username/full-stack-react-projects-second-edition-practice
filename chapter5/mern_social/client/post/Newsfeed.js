@@ -56,12 +56,12 @@ export default function Newsfeed () {
     setPosts(updatedPosts)
   }
   
-  // const removePost = (post) => {
-  //   const updatedPosts = [...posts]
-  //   const index = updatedPosts.indexOf(post)
-  //   updatedPosts.splice(index, 1)
-  //   setPosts(updatedPosts)
-  // }
+  const removePost = (post) => {
+    const updatedPosts = [...posts]
+    const index = updatedPosts.indexOf(post)
+    updatedPosts.splice(index, 1)
+    setPosts(updatedPosts)
+  }
 
   return (
     <Card className={classes.card}>
@@ -71,7 +71,7 @@ export default function Newsfeed () {
       <Divider/>
       <NewPost addUpdate={addPost}/>
       <Divider/>
-      <PostList posts={posts}/>
+      <PostList removeUpdate={removePost} posts={posts}/>
     </Card>
   )
 }

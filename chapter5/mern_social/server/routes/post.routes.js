@@ -28,8 +28,8 @@ router.route('/api/posts/photo/:postId')
 // router.route('/api/posts/uncomment')
 //   .put(authCtrl.requireSignin, postCtrl.uncomment)
 
-// router.route('/api/posts/:postId')
-//   .delete(authCtrl.requireSignin, postCtrl.isPoster, postCtrl.remove)
+router.route('/api/posts/:postId')
+  .delete(authCtrl.requireSignin, postCtrl.isPoster, postCtrl.remove)
 
 router.param('userId', userCtrl.userByID)
 router.param('postId', postCtrl.postByID)

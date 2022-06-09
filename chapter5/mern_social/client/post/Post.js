@@ -6,8 +6,8 @@ import CardContent from '@material-ui/core/CardContent'
 // import CardActions from '@material-ui/core/CardActions'
 import Typography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar'
-// import IconButton from '@material-ui/core/IconButton'
-// import DeleteIcon from '@material-ui/icons/Delete'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/Delete'
 // import FavoriteIcon from '@material-ui/icons/Favorite'
 // import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 // import CommentIcon from '@material-ui/icons/Comment'
@@ -15,7 +15,7 @@ import Divider from '@material-ui/core/Divider'
 import PropTypes from 'prop-types'
 import {makeStyles} from '@material-ui/core/styles'
 import {Link} from 'react-router-dom'
-// import {remove, like, unlike} from './api-post.js'
+import {remove} from './api-post.js'
 // import Comments from './Comments'
 
 const useStyles = makeStyles(theme => ({
@@ -82,19 +82,19 @@ export default function Post (props){
   //   setValues({...values, comments: comments})
   // }
 
-  // const deletePost = () => {   
-  //   remove({
-  //     postId: props.post._id
-  //   }, {
-  //     t: jwt.token
-  //   }).then((data) => {
-  //     if (data.error) {
-  //       console.log(data.error)
-  //     } else {
-  //       props.onRemove(props.post)
-  //     }
-  //   })
-  // }
+  const deletePost = () => {   
+    remove({
+      postId: props.post._id
+    }, {
+      t: jwt.token
+    }).then((data) => {
+      if (data.error) {
+        console.log(data.error)
+      } else {
+        props.onRemove(props.post)
+      }
+    })
+  }
 
   return (
     <Card className={classes.card}>
@@ -102,11 +102,11 @@ export default function Post (props){
           avatar={
             <Avatar src={'/api/users/photo/'+props.post.postedBy._id}/>
           }
-          // action={props.post.postedBy._id === auth.isAuthenticated().user._id &&
-          //   <IconButton onClick={deletePost}>
-          //     <DeleteIcon />
-          //   </IconButton>
-          // }
+          action={props.post.postedBy._id === auth.isAuthenticated().user._id &&
+            <IconButton onClick={deletePost}>
+              <DeleteIcon />
+            </IconButton>
+          }
           title={<Link to={"/user/" + props.post.postedBy._id}>{props.post.postedBy.name}</Link>}
           subheader={(new Date(props.post.created)).toDateString()}
           className={classes.cardHeader}
@@ -144,5 +144,5 @@ export default function Post (props){
 
 Post.propTypes = {
   post: PropTypes.object.isRequired,
-  // onRemove: PropTypes.func.isRequired
+  onRemove: PropTypes.func.isRequired
 }

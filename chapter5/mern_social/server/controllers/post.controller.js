@@ -77,17 +77,17 @@ const listNewsFeed = async (req, res) => {
   }
 }
 
-// const remove = async (req, res) => {
-//   let post = req.post
-//   try{
-//     let deletedPost = await post.remove()
-//     res.json(deletedPost)
-//   }catch(err){
-//     return res.status(400).json({
-//       error: errorHandler.getErrorMessage(err)
-//     })
-//   }
-// }
+const remove = async (req, res) => {
+  let post = req.post
+  try{
+    let deletedPost = await post.remove()
+    res.json(deletedPost)
+  }catch(err){
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }
+}
 
 const photo = (req, res, next) => {
   res.set("Content-Type", req.post.photo.contentType)
@@ -146,26 +146,26 @@ const photo = (req, res, next) => {
 //   }
 // }
 
-// const isPoster = (req, res, next) => {
-//   let isPoster = req.post && req.auth && req.post.postedBy._id == req.auth._id
-//   if(!isPoster){
-//     return res.status('403').json({
-//       error: "User is not authorized"
-//     })
-//   }
-//   next()
-// }
+const isPoster = (req, res, next) => {
+  let isPoster = req.post && req.auth && req.post.postedBy._id == req.auth._id
+  if(!isPoster){
+    return res.status('403').json({
+      error: "User is not authorized"
+    })
+  }
+  next()
+}
 
 export default {
 //   listByUser,
   listNewsFeed,
   create,
   postByID,
-//   remove,
+  remove,
   photo,
 //   like,
 //   unlike,
 //   comment,
 //   uncomment,
-//   isPoster
+  isPoster
 }

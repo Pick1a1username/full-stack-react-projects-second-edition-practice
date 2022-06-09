@@ -47,21 +47,21 @@ const listNewsFeed = async (params, credentials, signal) => {
   }
 }
 
-// const remove = async (params, credentials) => {
-//   try {
-//     let response = await fetch('/api/posts/' + params.postId, {
-//       method: 'DELETE',
-//       headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json',
-//         'Authorization': 'Bearer ' + credentials.t
-//       }
-//     })
-//     return await response.json()
-//   } catch(err) {
-//     console.log(err)
-//   }
-// }
+const remove = async (params, credentials) => {
+  try {
+    let response = await fetch('/api/posts/' + params.postId, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + credentials.t
+      }
+    })
+    return await response.json()
+  } catch(err) {
+    console.log(err)
+  }
+}
 
 
 // const like = async (params, credentials, postId) => {
@@ -140,7 +140,7 @@ export {
   listNewsFeed,
   // listByUser,
   create,
-  // remove,
+  remove,
   // like,
   // unlike,
   // comment,
