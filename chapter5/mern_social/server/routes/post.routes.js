@@ -15,8 +15,8 @@ router.route('/api/posts/feed/:userId')
 router.route('/api/posts/photo/:postId')
   .get(authCtrl.requireSignin, postCtrl.photo)
 
-// router.route('/api/posts/by/:userId')
-//   .get(authCtrl.requireSignin, postCtrl.listByUser)
+router.route('/api/posts/by/:userId')
+  .get(authCtrl.requireSignin, postCtrl.listByUser)
 
 router.route('/api/posts/like')
   .put(authCtrl.requireSignin, postCtrl.like)

@@ -19,6 +19,7 @@ import FollowProfileButton from './../user/FollowProfileButton'
 import ProfileTabs from './../user/ProfileTabs'
 import auth from './../auth/auth-helper'
 import {read} from './api-user.js'
+import {listByUser} from './../post/api-post.js'
 import {Redirect, Link} from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
@@ -41,6 +42,7 @@ export default function Profile({ match }) {
     redirectToSignin: false,
     following: false
   })
+  const [posts, setPosts] = useState([])
   const jwt = auth.isAuthenticated()
 
   useEffect(() => {
@@ -53,6 +55,7 @@ export default function Profile({ match }) {
       } else {
         let following = checkFollow(data)
         setValues({...values, user: data, following: following})
+        loadPosts(data._id)
       }
     })
 
@@ -80,6 +83,27 @@ export default function Profile({ match }) {
         setValues({...values, user: data, following: !values.following})
       }
     })
+  }
+
+  const loadPosts = (user) => {
+    listByUser({
+      userId: user
+    }, {
+      t: jwt.token
+    }).then((data) => {
+      if (data.error) {
+        console.log(data.error)
+      } else {
+        setPosts(data)
+      }
+    })
+  }
+  
+  const removePost = (post) => {
+    const updatedPosts = posts
+    const index = updatedPosts.indexOf(post)
+    updatedPosts.splice(index, 1)
+    setPosts(updatedPosts)
   }
 
   if (values.redirectToSignin) {
@@ -128,7 +152,7 @@ export default function Profile({ match }) {
           </CardContent>
         </Card>
       </List>
-      <ProfileTabs user={values.user}/>
+      <ProfileTabs user={values.user} posts={posts} removePostUpdate={removePost}/>
     </Paper>
   )
 }
