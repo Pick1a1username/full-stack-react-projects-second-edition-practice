@@ -3,19 +3,19 @@ import auth from './../auth/auth-helper'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
-// import CardActions from '@material-ui/core/CardActions'
+import CardActions from '@material-ui/core/CardActions'
 import Typography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
-// import FavoriteIcon from '@material-ui/icons/Favorite'
-// import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 // import CommentIcon from '@material-ui/icons/Comment'
 import Divider from '@material-ui/core/Divider'
 import PropTypes from 'prop-types'
 import {makeStyles} from '@material-ui/core/styles'
 import {Link} from 'react-router-dom'
-import {remove} from './api-post.js'
+import {remove, like, unlike} from './api-post.js'
 // import Comments from './Comments'
 
 const useStyles = makeStyles(theme => ({
@@ -52,31 +52,41 @@ const useStyles = makeStyles(theme => ({
 export default function Post (props){
   const classes = useStyles()
   const jwt = auth.isAuthenticated()
-//   const checkLike = (likes) => {
-//     let match = likes.indexOf(jwt.user._id) !== -1
-//     return match
-//   }
+  const checkLike = (likes) => {
+    let match = likes.indexOf(jwt.user._id) !== -1
+    return match
+  }
 
-  // const [values, setValues] = useState({
-//     like: checkLike(props.post.likes),
-//     likes: props.post.likes.length,
-//     comments: props.post.comments
-  // })
+  const [values, setValues] = useState({
+    like: checkLike(props.post.likes),
+    likes: props.post.likes.length,
+    // comments: props.post.comments
+  })
 
-//   const clickLike = () => {
-//     let callApi = values.like ? unlike : like
-//     callApi({
-//       userId: jwt.user._id
-//     }, {
-//       t: jwt.token
-//     }, props.post._id).then((data) => {
-//       if (data.error) {
-//         console.log(data.error)
-//       } else {
-//         setValues({...values, like: !values.like, likes: data.likes.length})
-//       }
-//     })
-//   }
+  // Without this, the values of like, likes will not be updated properly
+  // after adding or removing a post.
+  // Note that if the second argument is not passed,
+  // useEffect() is triggered only when props.key is changed.
+  // So `[props.post]` should be specified so that like and likes are updated
+  // when the order of the array of posts is changed.
+  useEffect(() => {
+    setValues({...values, like:checkLike(props.post.likes), likes: props.post.likes.length})
+  }, [props.post])
+
+  const clickLike = () => {
+    let callApi = values.like ? unlike : like
+    callApi({
+      userId: jwt.user._id
+    }, {
+      t: jwt.token
+    }, props.post._id).then((data) => {
+      if (data.error) {
+        console.log(data.error)
+      } else {
+        setValues({...values, like: !values.like, likes: data.likes.length})
+      }
+    })
+  }
 
   // const updateComments = (comments) => {
   //   setValues({...values, comments: comments})
@@ -123,18 +133,20 @@ export default function Post (props){
               />
           </div>)}
       </CardContent>
-      {/* <CardActions>
+      <CardActions>
         { values.like
           ? <IconButton onClick={clickLike} className={classes.button} aria-label="Like" color="secondary">
               <FavoriteIcon />
             </IconButton>
           : <IconButton onClick={clickLike} className={classes.button} aria-label="Unlike" color="secondary">
               <FavoriteBorderIcon />
-            </IconButton> } <span>{values.likes}</span>
-            <IconButton className={classes.button} aria-label="Comment" color="secondary">
-              <CommentIcon/>
-            </IconButton> <span>{values.comments.length}</span>
-      </CardActions> */}
+            </IconButton>
+        }
+        <span>{values.likes}</span>
+        {/* <IconButton className={classes.button} aria-label="Comment" color="secondary">
+          <CommentIcon/>
+        </IconButton> <span>{values.comments.length}</span> */}
+      </CardActions>
       <Divider/>
       {/* <Comments postId={props.post._id} comments={values.comments} updateComments={updateComments}/> */}
     </Card>

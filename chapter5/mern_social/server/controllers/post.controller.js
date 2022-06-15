@@ -94,27 +94,27 @@ const photo = (req, res, next) => {
   return res.send(req.post.photo.data)
 }
 
-// const like = async (req, res) => {
-//   try{
-//     let result = await Post.findByIdAndUpdate(req.body.postId, {$push: {likes: req.body.userId}}, {new: true})
-//     res.json(result)
-//   }catch(err){
-//       return res.status(400).json({
-//         error: errorHandler.getErrorMessage(err)
-//       })
-//   }
-// }
+const like = async (req, res) => {
+  try{
+    let result = await Post.findByIdAndUpdate(req.body.postId, {$push: {likes: req.body.userId}}, {new: true})
+    res.json(result)
+  } catch(err) {
+      return res.status(400).json({
+        error: errorHandler.getErrorMessage(err)
+      })
+  }
+}
 
-// const unlike = async (req, res) => {
-//   try{
-//     let result = await Post.findByIdAndUpdate(req.body.postId, {$pull: {likes: req.body.userId}}, {new: true})
-//     res.json(result)
-//   }catch(err){
-//     return res.status(400).json({
-//       error: errorHandler.getErrorMessage(err)
-//     })
-//   }
-// }
+const unlike = async (req, res) => {
+  try{
+    let result = await Post.findByIdAndUpdate(req.body.postId, {$pull: {likes: req.body.userId}}, {new: true})
+    res.json(result)
+  } catch(err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }
+}
 
 // const comment = async (req, res) => {
 //   let comment = req.body.comment
@@ -163,8 +163,8 @@ export default {
   postByID,
   remove,
   photo,
-//   like,
-//   unlike,
+  like,
+  unlike,
 //   comment,
 //   uncomment,
   isPoster
