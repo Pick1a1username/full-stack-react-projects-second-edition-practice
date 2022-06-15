@@ -100,40 +100,40 @@ const unlike = async (params, credentials, postId) => {
 }
 
 
-// const comment = async (params, credentials, postId, comment) => {
-//   try {
-//     let response = await fetch('/api/posts/comment/', {
-//       method: 'PUT',
-//       headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json',
-//         'Authorization': 'Bearer ' + credentials.t
-//       },
-//       body: JSON.stringify({userId:params.userId, postId: postId, comment: comment})
-//     })
-//     return await response.json()
-//   } catch(err) {
-//     console.log(err)
-//   }
-// }
+const comment = async (params, credentials, postId, comment) => {
+  try {
+    let response = await fetch('/api/posts/comment/', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + credentials.t
+      },
+      body: JSON.stringify({userId:params.userId, postId: postId, comment: comment})
+    })
+    return await response.json()
+  } catch(err) {
+    console.log(err)
+  }
+}
 
 
-// const uncomment = async (params, credentials, postId, comment) => {
-//   try {
-//     let response = await fetch('/api/posts/uncomment/', {
-//       method: 'PUT',
-//       headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json',
-//         'Authorization': 'Bearer ' + credentials.t
-//       },
-//       body: JSON.stringify({userId:params.userId, postId: postId, comment: comment})
-//     })
-//     return await response.json()
-//   } catch(err) {
-//     console.log(err)
-//   }
-// }
+const uncomment = async (params, credentials, postId, comment) => {
+  try {
+    let response = await fetch('/api/posts/uncomment/', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + credentials.t
+      },
+      body: JSON.stringify({userId:params.userId, postId: postId, comment: comment})
+    })
+    return await response.json()
+  } catch(err) {
+    console.log(err)
+  }
+}
 
 
 export {
@@ -143,6 +143,6 @@ export {
   remove,
   like,
   unlike,
-  // comment,
-  // uncomment
+  comment,
+  uncomment
 }

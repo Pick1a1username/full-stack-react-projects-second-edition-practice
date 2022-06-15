@@ -116,35 +116,36 @@ const unlike = async (req, res) => {
   }
 }
 
-// const comment = async (req, res) => {
-//   let comment = req.body.comment
-//   comment.postedBy = req.body.userId
-//   try{
-//     let result = await Post.findByIdAndUpdate(req.body.postId, {$push: {comments: comment}}, {new: true})
-//                             .populate('comments.postedBy', '_id name')
-//                             .populate('postedBy', '_id name')
-//                             .exec()
-//     res.json(result)
-//   }catch(err){
-//     return res.status(400).json({
-//       error: errorHandler.getErrorMessage(err)
-//     })
-//   }
-// }
-// const uncomment = async (req, res) => {
-//   let comment = req.body.comment
-//   try{
-//     let result = await Post.findByIdAndUpdate(req.body.postId, {$pull: {comments: {_id: comment._id}}}, {new: true})
-//                           .populate('comments.postedBy', '_id name')
-//                           .populate('postedBy', '_id name')
-//                           .exec()
-//     res.json(result)
-//   }catch(err){
-//     return res.status(400).json({
-//       error: errorHandler.getErrorMessage(err)
-//     })
-//   }
-// }
+const comment = async (req, res) => {
+  let comment = req.body.comment
+  comment.postedBy = req.body.userId
+  try{
+    let result = await Post.findByIdAndUpdate(req.body.postId, {$push: {comments: comment}}, {new: true})
+                            .populate('comments.postedBy', '_id name')
+                            .populate('postedBy', '_id name')
+                            .exec()
+    res.json(result)
+  }catch(err){
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }
+}
+
+const uncomment = async (req, res) => {
+  let comment = req.body.comment
+  try{
+    let result = await Post.findByIdAndUpdate(req.body.postId, {$pull: {comments: {_id: comment._id}}}, {new: true})
+                          .populate('comments.postedBy', '_id name')
+                          .populate('postedBy', '_id name')
+                          .exec()
+    res.json(result)
+  }catch(err){
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }
+}
 
 const isPoster = (req, res, next) => {
   let isPoster = req.post && req.auth && req.post.postedBy._id == req.auth._id
@@ -165,7 +166,7 @@ export default {
   photo,
   like,
   unlike,
-//   comment,
-//   uncomment,
+  comment,
+  uncomment,
   isPoster
 }

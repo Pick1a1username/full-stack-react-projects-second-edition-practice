@@ -10,13 +10,13 @@ import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/Delete'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
-// import CommentIcon from '@material-ui/icons/Comment'
+import CommentIcon from '@material-ui/icons/Comment'
 import Divider from '@material-ui/core/Divider'
 import PropTypes from 'prop-types'
 import {makeStyles} from '@material-ui/core/styles'
 import {Link} from 'react-router-dom'
 import {remove, like, unlike} from './api-post.js'
-// import Comments from './Comments'
+import Comments from './Comments'
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -60,7 +60,7 @@ export default function Post (props){
   const [values, setValues] = useState({
     like: checkLike(props.post.likes),
     likes: props.post.likes.length,
-    // comments: props.post.comments
+    comments: props.post.comments
   })
 
   // Without this, the values of like, likes will not be updated properly
@@ -70,7 +70,7 @@ export default function Post (props){
   // So `[props.post]` should be specified so that like and likes are updated
   // when the order of the array of posts is changed.
   useEffect(() => {
-    setValues({...values, like:checkLike(props.post.likes), likes: props.post.likes.length})
+    setValues({...values, like:checkLike(props.post.likes), likes: props.post.likes.length, comments: props.post.comments})
   }, [props.post])
 
   const clickLike = () => {
@@ -88,9 +88,10 @@ export default function Post (props){
     })
   }
 
-  // const updateComments = (comments) => {
-  //   setValues({...values, comments: comments})
-  // }
+  const updateComments = (comments) => {
+    setValues({...values, comments: comments})
+    props.post.comments = comments
+  }
 
   const deletePost = () => {   
     remove({
@@ -143,12 +144,12 @@ export default function Post (props){
             </IconButton>
         }
         <span>{values.likes}</span>
-        {/* <IconButton className={classes.button} aria-label="Comment" color="secondary">
+        <IconButton className={classes.button} aria-label="Comment" color="secondary">
           <CommentIcon/>
-        </IconButton> <span>{values.comments.length}</span> */}
+        </IconButton> <span>{values.comments.length}</span>
       </CardActions>
       <Divider/>
-      {/* <Comments postId={props.post._id} comments={values.comments} updateComments={updateComments}/> */}
+      <Comments postId={props.post._id} comments={values.comments} updateComments={updateComments}/>
     </Card>
   )
   
