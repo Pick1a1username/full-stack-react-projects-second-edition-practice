@@ -30,14 +30,18 @@ const useStyles = makeStyles(theme => ({
   }
 })) 
 
-export default function Home({}){
+export default function Home({history}){
   const classes = useStyles()
   const [defaultPage, setDefaultPage] = useState(false)
 
   useEffect(()=> {
     setDefaultPage(auth.isAuthenticated())
-
-    return () => {}
+    const unlisten = history.listen(() => {
+      setDefaultPage(auth.isAuthenticated())
+    })
+    return () => {
+      unlisten()
+    }
   }, [])
 
   return (
